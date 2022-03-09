@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<deployment>
+    <cluster hostcount="1"/>
+    <partition-detection/>
+    <heartbeat/>
+    <ssl/>
+    <httpd enabled="true">
+        <jsonapi enabled="true"/>
+    </httpd>
+    <snapshot enabled="false"/>
+    <export>
+        <configuration target="test" enabled="true" type="kafka">
+            <property name="bootstrap.servers">localhost:9092</property>
+            <property name="topic.key">volttopic1.test</property>
+            <property name="skipinternals">true</property>
+        </configuration>
+    </export>
+    <commandlog enabled="true">
+        <frequency/>
+    </commandlog>
+    <systemsettings>
+        <temptables/>
+        <snapshot/>
+        <elastic/>
+        <query/>
+        <procedure/>
+        <resourcemonitor>
+            <memorylimit/>
+        </resourcemonitor>
+        <flushinterval>
+            <dr/>
+            <export/>
+        </flushinterval>
+    </systemsettings>
+    <security/>
+</deployment>
