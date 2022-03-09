@@ -13,23 +13,12 @@ set up kafka and download the connector jar here: https://mvnrepository.com/arti
 copy the jar file into the directory $KAFKA_HOME/libs
 
 start zookeeper and kafka
-start the standalone kafka connect, here is an example of a connector properties file:
-name=voltkafkaconnectsnowflake
-connector.class=com.snowflake.kafka.connector.SnowflakeSinkConnector
-tasks.max=8
-topics=voltdbexportVOLTTOPIC
-buffer.count.records=10000
-buffer.flush.time=60
-buffer.size.bytes=5000000
-snowflake.url.name=https://ts92461.eu-central-1.snowflakecomputing.com
-snowflake.user.name=VOLTUSER
-snowflake.private.key=<your key goes here>
-snowflake.private.key.passphrase=<your passphrase goes here>
-snowflake.database.name=VOLTACTIVEDATA
-snowflake.schema.name=VOLTSCHEMA
-key.converter=org.apache.kafka.connect.storage.StringConverter
-value.converter=org.apache.kafka.connect.storage.StringConverter
-zookeeper.connect=localhost
+start the standalone kafka connect, attached an example of a connector properties file
+the commands to start everything (assuming start directory $KAFKA_HOME/bin):
+
+./zookeeper-server-start.sh ../config/zookeeper.properties
+./kafka-server-start.sh ../config/server.properties 
+./connect-standalone.sh ../config/connect-standalone.properties ../config/SF_connect_volt.properties
 
 
 step2:
@@ -45,7 +34,7 @@ the deployment.xml for Volt needs to contain something like:
         </configuration>
     </export>
 
-create a stored procedure to publish from Volt onto the queue, like this for example:
+create a stored procedure to publish from Volt onto the queue, like this for example (attached as DDL.SQL):
 
 create stream volttopic export to target test (
   name varchar(100) not null,
